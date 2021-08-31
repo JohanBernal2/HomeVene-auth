@@ -152,7 +152,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'success' => true, 'data'=> ['message'=> 'A reset email has be s  been sent! Please check your email.']
+            'success' => true, 'data'=> ['message'=> 'A reset emaidfl has be s  been sent! Please check your email.']
         ]);
     }
 }

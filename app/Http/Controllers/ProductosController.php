@@ -34,14 +34,11 @@ class ProductosController extends Controller
 
     public function update(Request $request)
     {
-        $productos = Productos::findOrFail($request->id);
-        $productos->name = $request->name;
-        $productos->precio = $request->precio;
-
-
-        $productos->save();
-
-        return $productos;
+        $producto = Productos::findOrFail($request->id);
+        $producto->name = $request->name;
+        $producto->precio = $request->precio;
+        $producto->save();
+        return $producto;
 
     }
 
@@ -49,6 +46,7 @@ class ProductosController extends Controller
     {
         $productos = Productos::destroy($request->id);
         return $productos;
+
     }
 
 

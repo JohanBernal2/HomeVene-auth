@@ -68,21 +68,23 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $users = User::findOrFail($request->id);
-        $users->users = $request->name;
-        $users->users = $request->email;
-        $users->users = $request->password;
-        $users->save();
-        return $users;
+        $user = User::findOrFail($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+        return $user;
 
     }
 
-    public function destroy(Request $request)
-    {
-        $productos = Productos::destroy($request->id);
-        return $productos;
+     public function destroy(Request $request)
+     {
+         //$users = Users::destroy($request->id);
+         $user = User::findOrFail($request->id);
+         $user ->delete();
+         return $user;
 
-    }
+     }
 
 
 }

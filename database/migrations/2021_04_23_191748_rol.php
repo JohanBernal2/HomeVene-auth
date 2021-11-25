@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Pedidos extends Migration
+class Rol extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class Pedidos extends Migration
      */
     public function up()
     {
-        Schema::create('pedidos', function (Blueprint $table) {
+        Schema::create('rol', function (Blueprint $table) {
             $table->id();
-            $table->string('vendedor');
-            $table->string('cliente');
-            $table->string('descripcion');
-            $table->float('precioTotal');
+            // $table->bigInteger('user_id')->unsigned();
+            $table->string('nombre_rol');
             $table->timestamps();
+
+           // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class Pedidos extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('users');
     }
 }

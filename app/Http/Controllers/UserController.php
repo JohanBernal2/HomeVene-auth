@@ -69,9 +69,13 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = User::findOrFail($request->id);
-        $user->name = $request->name;
+        $user->rol_id = $request->rol_id;
+        $user->nombre = $request->nombre;
+        $user->apellido = $request->apellido;
+        $user->documento_identificacion = $request->documento_identificacion;
         $user->email = $request->email;
         $user->password = $request->password;
+        $user->direccion = $request->direccion;
         $user->save();
         return $user;
 

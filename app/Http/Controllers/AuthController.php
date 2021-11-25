@@ -19,42 +19,108 @@ use Illuminate\Mail\Message;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $credentials = $request->only('name', 'email', 'password');
+    // public function register(Request $request)
+    // {
+    //     // $credentials = $request->only('nombre', 'correo', 'clave');
 
-        $rules = [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users'
-        ];
+    //     // $rules = [
+    //     //     'nombre' => 'required|max:255',
+    //     //     'correo' => 'required|email|max:255|unique:users'
+    //     // ];
 
-        $validator = Validator::make($credentials, $rules);
-        if($validator->fails()) {
-            return response()->json(['success'=> false, 'error'=> $validator->messages()]);
-        }
+    //     // $validator = Validator::make($credentials, $rules);
+    //     // if($validator->fails()) {
+    //     //     return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+    //     // }
 
-        $name = $request->name;
+    //     $nombre = $request->nombre;
+    //     $apellido = $request->apellido;
+    //     $documento_identificacion = $request->documento_identificacion;
+    //     $user = $request->user;
+    //     $correo = $request->correo;
+    //     $clave = $request->clave;
+    //     $direccion = $request->direccion;
+    //     $telefono = $request->telefono;
+
+    //     // $user = new User;
+    //     // dd($user);
+    //      $users = User::create(['nombre' => $nombre,
+    //                            'apellido' => $apellido,
+    //                            'documento_identificacion'=> $documento_identificacion,
+    //                            'user' => $user,
+    //                            'correo' => $correo,
+    //                            'clave' => Hash::make($clave),
+    //                            'direccion' => $direccion,
+    //                            'telefono' => $telefono
+    //                          ]);
+
+    //     // $verification_code = str::random(30); //Generate verification code
+    //     // DB::table('user_verifications')->insert(['user_id'=>$user->id,'token'=>$verification_code]);
+
+
+    //     // $subject = "Verificar el registro";
+
+
+    //     // Mail::send('email.verify', compact('name','verification_code' ),
+    //     //     function($mail) use ($email, $name, $subject){
+    //     //         $mail->from(getenv('FROM_EMAIL_ADDRESS'), "USTA");
+    //     //         $mail->to($email, $name);
+    //     //         $mail->subject($subject);
+    //     //     });
+
+    //     return response()->json(['success'=> true, 'message'=> 'Thanks for signing up! Please check your email to complete your registration.']);
+    // }
+
+
+
+
+
+
+     public function register(Request $request)
+     {
+         $credentials = $request->only('nombre', 'email', 'password');
+
+         $rules = [
+             'nombre' => 'required|max:255',
+             'email' => 'required|email|max:255|unique:users'
+         ];
+
+         $validator = Validator::make($credentials, $rules);
+         if($validator->fails()) {
+             return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+         }
+
+        $rol_id = $request->rol_id;
+        $nombre = $request->nombre;
+        $apellido = $request->apellido;
+        $documento_identificacion = $request->documento_identificacion;
         $email = $request->email;
         $password = $request->password;
+        $direccion = $request->direccion;
 
-        $user = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
+         $user = User::create(['rol_id'=>$rol_id,'nombre' => $nombre, 'apellido' => $apellido,
+          'documento_identificacion' => $documento_identificacion,
+         'email' => $email,
+         'password' => Hash::make($password),
+         'direccion' => $direccion,
+        ]);
 
-        $verification_code = str::random(30); //Generate verification code
-        DB::table('user_verifications')->insert(['user_id'=>$user->id,'token'=>$verification_code]);
+         $verification_code = str::random(30); //Generate verification code
+         DB::table('user_verifications')->insert(['user_id'=>$user->id,'token'=>$verification_code]);
 
 
-        $subject = "Verificar el registro";
+         $subject = "Verificar el registro";
 
 
-        Mail::send('email.verify', compact('name','verification_code' ),
-            function($mail) use ($email, $name, $subject){
-                $mail->from(getenv('FROM_EMAIL_ADDRESS'), "USTA");
-                $mail->to($email, $name);
-                $mail->subject($subject);
-            });
+         Mail::send('email.verify', compact('nombre','verification_code' ),
+             function($mail) use ($email, $nombre, $subject){
+                 $mail->from(getenv('FROM_EMAIL_ADDRESS'), "USTA");
+                 $mail->to($email, $nombre);
+                 $mail->subject($subject);
+             });
 
-        return response()->json(['success'=> true, 'message'=> 'Thanks for signing up! Please check your email to complete your registration.']);
-    }
+         return response()->json(['success'=> true, 'message'=> 'Thanks for signing up! Please check your email to complete your registration.']);
+     }
 
 
 

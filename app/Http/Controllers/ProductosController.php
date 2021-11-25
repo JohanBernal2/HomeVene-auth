@@ -26,7 +26,7 @@ class ProductosController extends Controller
     public function store(Request $request)
     {
         $productos = new Productos();
-        $productos->name = $request->name;
+        $productos->nombre_producto = $request->nombre_producto;
         $productos->precio = $request->precio;
         $productos->save();
     }
@@ -35,7 +35,7 @@ class ProductosController extends Controller
     public function update(Request $request)
     {
         $producto = Productos::findOrFail($request->id);
-        $producto->name = $request->name;
+        $producto->nombre_producto = $request->nombre_producto;
         $producto->precio = $request->precio;
         $producto->save();
         return $producto;

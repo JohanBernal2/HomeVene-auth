@@ -12,42 +12,27 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password','is_verified'
-    ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+     protected $fillable = [
+        'rol_id', 'nombre', 'apellido', 'documento_identificacion',
+        'email','password', 'direccion','is_verified'
+     ];
+   // protected $table = "users";
+
+     protected $hidden = [
+         'clave', 'remember_token',
+     ];
 
 
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
+
+     public function getJWTIdentifier()
+     {
+         return $this->getKey();
+     }
+
+     public function getJWTCustomClaims()
+     {
+         return [];
+     }
 }

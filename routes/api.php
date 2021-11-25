@@ -17,6 +17,7 @@ Route::delete('users', 'UserController@destroy');
 
 
 
+Route::get('rol', 'RolController@index');
 
 
 Route::get('productos', 'ProductosController@index');
